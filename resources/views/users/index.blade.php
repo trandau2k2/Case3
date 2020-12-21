@@ -1,56 +1,63 @@
 @extends('layouts.master')
 @section('content')
-    <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <a href="{{route('user.create')}}" class="btn btn-success">ADD</a>
+                    <form action="{{route('user.search')}} " class="card-tools">
 
-        <div class="col-12 col-md-12">
-{{--            @can('create-user')--}}
-                <a href="{{route('user.create')}}" class="btn btn-success">ADD</a>
-{{--            @endcan--}}
-            <div class="col-12 col-md-12">
+                        <div  class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text"  class="form-control float-right" placeholder="Search">
 
-            <form action="{{route('user.search')}}" class="form-inline mr-auto w-100 navbar-search">
-                <div class="input-group">
-                    <input type="text" name="keyword" class="form-control bg-light border-0 small"
-                           placeholder="Search for..." aria-label="Search"
-                           aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search
-{{--                            <i class="fas fa-search fa-sm"></i>--}}
-                        </button>
-                    </div>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-            </div>
-                <table class="table">
-                    <thead class="table-primary">
-                    <tr bgcolor="#7fffd4">
-                        <th  scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $key => $user)
-                        <tr bgcolor="#faebd7">
-                            <th scope="row">{{$key + 1}}</th>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
-                            <td>
-                                @foreach($user->roles as $role)
-                                    {{$role->name . ';'}}
-                                @endforeach
-                            </td>
-                            <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" href="{{route('delete.store', $user->id)}}"
-                                   class="btn btn-danger">Delete</a>
-                                <a href="{{route('update.store', $user->id)}}" class="btn btn-primary">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
 
-                    </tbody>
-                </table>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                    <table class="table table-head-fixed text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $key => $user)
+                            <tr>
+                                <th scope="row">{{$key + 1}}</th>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>
+                                    @foreach($user->roles as $role)
+                                        {{$role->name . ';'}}
+                                    @endforeach
+                                </td>
+                                <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" href="{{route('delete.store', $user->id)}}"
+                                       class="btn btn-danger">Delete</a>
+                                    <a href="{{route('update.store', $user->id)}}" class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
+      </div>
     </div>
 @endsection

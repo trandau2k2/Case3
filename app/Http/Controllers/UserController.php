@@ -57,5 +57,12 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('user.index');
     }
+    function search(Request $request){
+        $keyword = $request->keyword;
+        $users = User::where('name','LIKE','%'.$keyword.'%')->orwhere(
+            'email','LIKE','%'.$keyword.'%'
+        )->get();
+        return view('users.index',compact('users'));
+    }
 
 }
